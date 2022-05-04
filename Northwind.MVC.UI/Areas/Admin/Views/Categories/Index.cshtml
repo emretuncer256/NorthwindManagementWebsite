@@ -1,0 +1,74 @@
+﻿@using Northwind.Entities.Concrete
+@model List<Category>
+@{
+    ViewData["Title"] = "Categories";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="border border-secondary rounded-pill p-2">
+            <div class="btn-group" role="group">
+                <a href="/Admin/Categories/Add" class="btn btn-outline-success">Add a New Category</a>
+                <a target="_blank" href="/Admin/Categories/Export" class="btn btn-outline-info">Export</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row align-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    <h3 class="card-title">@item.CategoryName</h3>
+                    <div class="card-tools">
+                        <a href="/Admin/Categories/Edit/@item.CategoryId" data-toggle="tooltip" data-placement="top" title="Edit @item.CategoryName" class="btn btn-tool"><i class="fas fa-wrench"></i></a>
+                    </div>
+                </div>
+                <img src="/img/category-placeholder.png" class="card-img-top" alt="...">
+                <div class="card-body">
+                    <p class="card-text">@item.Description</p>
+                    <a href="/Admin/Categories/Products/@item.CategoryId" class="btn btn-primary">Go prodcuts</a>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@section Styles{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+@section Scripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["categoryUpdateSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["categoryUpdateSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["categoryAddSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["categoryAddSuccessMessage"]')
+        });
+        </script>
+    }
+}

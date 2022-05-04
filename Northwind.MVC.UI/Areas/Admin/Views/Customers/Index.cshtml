@@ -1,0 +1,113 @@
+﻿@using Northwind.Entities.Concrete
+@model List<Customer>
+@{
+    ViewData["Title"] = "Customers";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+    <style>
+        #table-row {
+            color: #212529;
+        }
+
+            #table-row:hover {
+                background-color: #3a4047;
+                color: white;
+            }
+
+        #customerTable_length > label > select {
+            outline: none;
+            color: #aaa;
+            border-radius: 15px;
+        }
+
+            #customerTable_length > label > select:focus {
+                border-color: teal;
+            }
+
+        #customerTable_filter > label > input {
+            outline: none;
+            color: #aaa;
+            border-radius: 15px;
+        }
+
+            #customerTable_filter > label > input:focus {
+                border-color: teal;
+            }
+    </style>
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+
+}
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="border border-secondary rounded-pill p-2">
+            <div class="btn-group" role="group">
+                <a target="_blank" href="/Admin/Customers/Export" class="btn btn-outline-info">Export</a>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="customerTable" class="table table-hover table-bordered nowrap">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Company Name</th>
+            <th>Contact Name</th>
+            <th>Country</th>
+            <th>Phone</th>
+            <th>Tools</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="table-row">
+                <td>@item.CustomerId</td>
+                <th>@item.CompanyName</th>
+                <td>@item.ContactName</td>
+                <td>@item.Country</td>
+                <td>@item.Phone</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a href="/Admin/Customers/View/@item.CustomerId" class="btn btn-outline-primary">View</a>
+                        <a href="/Admin/Customers/Edit/@item.CustomerId" class="btn btn-outline-warning">Edit</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#customerTable').DataTable({
+                paging: true
+            });
+        });
+    </script>
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["customerSuccessUpdateMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["customerSuccessUpdateMessage"]')
+        });
+        </script>
+    }
+}

@@ -1,0 +1,39 @@
+﻿@using Northwind.Entities.Concrete
+@using Northwind.Core.Utilities.Results.Abstract
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Welcome | Northwind";
+}
+@section Styles{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["loginSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["loginSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["logoutSucessfull"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["logoutSucessfull"]')
+        });
+        </script>
+    }
+}

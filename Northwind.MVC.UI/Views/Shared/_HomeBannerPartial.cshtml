@@ -1,0 +1,41 @@
+﻿@using System.Security.Claims
+<div class="banner">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="banner-content">
+                    <h6>Developed With Love</h6>
+                    <h2>Northwind</h2>
+                    <ul class="buttons">
+                        @if (User.FindFirstValue(ClaimTypes.Email) == null)
+                        {
+                            <li>
+                                <div class="primary-button">
+                                    <a href="/Users/Register">Register</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="secondary-button">
+                                    <a href="/Users/Login">Login</a>
+                                </div>
+                            </li>
+                        }
+                        else
+                        {
+                            <li>
+                                <div class="secondary-button">
+                                    <a href="/Admin">Admin Panel</a>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="primary-button">
+                                    <a href="/Users/Logout">Logout</a>
+                                </div>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

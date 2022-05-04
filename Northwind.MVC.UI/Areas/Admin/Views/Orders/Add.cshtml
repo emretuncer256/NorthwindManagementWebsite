@@ -1,0 +1,158 @@
+﻿@model Northwind.Entities.Concrete.Order
+@{
+    ViewData["Title"] = "Create Order";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- jquery validation -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">Create a New Order</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form method="post" action="/Admin/Orders/Add" id="orderAddForm">
+                <div class="card-body">
+                    <div class="form-group">
+                        <label>Order Date:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <input type="text" id="OrderDate" name="OrderDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Required Date:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <input type="text" name="RequiredDate" id="RequiredDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Shipped Date:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <input type="text" name="ShippedDate" id="ShippedDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.EmployeeID, "Employee")
+                        @Html.DropDownListFor(x => x.EmployeeID, (List<SelectListItem>)ViewBag.OrderEmployees, "--SELECT--", new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.CustomerID, "Customer")
+                        @Html.DropDownListFor(x => x.CustomerID, (List<SelectListItem>)ViewBag.OrderCustomers, "--SELECT--", new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Freight, "Freight")
+                        @Html.TextBoxFor(x => x.Freight, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.ShipName, "Ship Name")
+                        @Html.TextBoxFor(x => x.ShipName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.ShipAddress, "Ship Address")
+                        @Html.TextBoxFor(x => x.ShipAddress, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.ShipCity, "Ship City")
+                        @Html.TextBoxFor(x => x.ShipCity, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.ShipRegion, "Ship Region")
+                        @Html.TextBoxFor(x => x.ShipRegion, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.ShipCountry, "Ship Country")
+                        @Html.TextBoxFor(x => x.ShipCountry, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.ShipPostalCode, "Ship Postal Code")
+                        @Html.TextBoxFor(x => x.ShipPostalCode, new { @class = "form-control" })
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-left">Save</button>
+                    <button type="reset" class="btn btn-secondary float-right">Clear</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!--/.col (left) -->
+</div>
+
+@section Scripts{
+    <!-- InputMask -->
+    <script src="~/theme/plugins/moment/moment.min.js"></script>
+    <script src="~/theme/plugins/inputmask/jquery.inputmask.min.js"></script>
+
+    <script src="~/theme/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/theme/plugins/jquery-validation/additional-methods.min.js"></script>
+    <script>
+        $(function () {
+            $('#OrderDate').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#RequiredDate').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#ShippedDate').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#orderAddForm').validate({
+                rules: {
+                    OrderDate: {
+                        required: true,
+                    },
+                    RequiredDate: {
+                        required: true
+                    },
+                    EmployeeID: {
+                        required: true
+                    },
+                    CustomerID: {
+                        required: true
+                    },
+                    Freight: {
+                        required: true,
+                    },
+                    ShipName: {
+                        required: true
+                    },
+                    ShipAddress: {
+                        required: true
+                    },
+                    ShipCity: {
+                        required: true
+                    },
+                    ShipPostalCode: {
+                        required: true
+                    },
+                    ShipCountry: {
+                        required: true
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });</script>
+
+}

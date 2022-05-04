@@ -1,0 +1,168 @@
+﻿@model Northwind.Entities.Concrete.Employee
+@{
+    ViewData["Title"] = "Add New Employee";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row">
+    <!-- left column -->
+    <div class="col-md-12">
+        <!-- jquery validation -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">New Employee</h3>
+            </div>
+            <!-- /.card-header -->
+            <!-- form start -->
+            <form method="post" action="/Admin/Employees/Add" id="employeeAddForm">
+                <div class="card-body">
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.FirstName, "First Name")
+                        @Html.TextBoxFor(x => x.FirstName, new { @class = "form-control", placeholder = "Enter First Name" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.LastName, "Last Name")
+                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", placeholder = "Enter Last Name" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Title, "Title")
+                        @Html.TextBoxFor(x => x.LastName, new { @class = "form-control", placeholder = "Enter Title" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.TitleOfCourtesy, "Title Of Courtesy")
+                        @Html.TextBoxFor(x => x.TitleOfCourtesy, new { @class = "form-control", placeholder = "Enter Title Of Courtesy" })
+                    </div>
+                    <div class="form-group">
+                        <label>Hire Date:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <input type="text" name="HireDate" id="HireDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Birth Date:</label>
+
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                            </div>
+                            <input type="text" name="BirthDate" id="BirthDate" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Address, "Address")
+                        @Html.TextBoxFor(x => x.Address, new { @class = "form-control", placeholder = "Enter Address" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Country, "Country")
+                        @Html.TextBoxFor(x => x.Country, new { @class = "form-control", placeholder = "Enter Country" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.City, "City")
+                        @Html.TextBoxFor(x => x.City, new { @class = "form-control", placeholder = "Enter City" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Region, "Region")
+                        @Html.TextBoxFor(x => x.Region, new { @class = "form-control", placeholder = "Enter Region" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.HomePhone, "Home Phone")
+                        @Html.TextBoxFor(x => x.HomePhone, new { @class = "form-control", placeholder = "Enter Home Phone" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.PostalCode, "Postal Code")
+                        @Html.TextBoxFor(x => x.PostalCode, new { @class = "form-control", placeholder = "Enter Postal Code" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.Notes, "Notes")
+                        @Html.TextAreaFor(x => x.Notes, new { @class = "form-control", placeholder = "Enter Notes", rows = "4" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(x => x.ReportsTo, "Reports To")
+                        @Html.TextBoxFor(x => x.ReportsTo, new { @class = "form-control", placeholder = "Enter Reports To" })
+                    </div>
+                </div>
+                <!-- /.card-body -->
+                <div class="card-footer">
+                    <button type="submit" class="btn btn-primary float-left">Save</button>
+                    <button type="reset" class="btn btn-secondary float-right">Clear</button>
+                </div>
+            </form>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!--/.col (left) -->
+</div>
+
+@section Scripts{
+    <!-- InputMask -->
+    <script src="~/theme/plugins/moment/moment.min.js"></script>
+    <script src="~/theme/plugins/inputmask/jquery.inputmask.min.js"></script>
+
+    <script src="~/theme/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/theme/plugins/jquery-validation/additional-methods.min.js"></script>
+    <script>
+        $(function () {
+            $('#HireDate').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#BirthDate').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('#employeeAddForm').validate({
+                rules: {
+                    FirstName: {
+                        required: true,
+                        maxlength: 10
+                    },
+                    LastName: {
+                        required: true,
+                        maxlength: 20
+                    },
+                    Title: {
+                        required: true,
+                        maxlength: 30
+                    },
+                    TitleOfCourtesy: {
+                        required: true
+                    },
+                    BirthDate: {
+                        required: true,
+                    },
+                    HireDate: {
+                        required: true
+                    },
+                    Address: {
+                        required: true,
+                        maxlength: 60
+                    },
+                    City: {
+                        required: true,
+                        maxlength: 15
+                    },
+                    PostalCode: {
+                        required: true,
+                        maxlength: 10
+                    },
+                    Country: {
+                        required: true,
+                        maxlength: 15
+                    },
+                    HomePhone: {
+                        required: true
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });</script>
+}

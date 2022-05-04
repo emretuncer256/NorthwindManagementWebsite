@@ -1,0 +1,136 @@
+﻿@using Northwind.Entities.Concrete
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<Supplier>
+@{
+    ViewData["Title"] = "Suppliers";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="border border-secondary rounded-pill p-2">
+            <div class="btn-group" role="group">
+                <a href="/Admin/Suppliers/Add" class="btn btn-outline-success">New Supplier</a>
+                <a target="_blank" href="/Admin/Suppliers/Export" class="btn btn-outline-info">Export</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card card-solid">
+    <div class="card-body pb-0">
+        <div class="row align-content-center">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4">
+                    <div class="card text-center" style="width: 18rem;">
+                        <div class="card-header bg-gradient-gray-dark">
+                            <div class="card-tools float-left">
+                                <a href="/Admin/Suppliers/View/@item.SupplierID" class="btn btn-outline-info btn-tool rounded-circle" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fas fa-eye"></i>
+                                </a>
+                            </div>
+                            <div class="card-tools float-right">
+                                <a href="/Admin/Suppliers/Edit/@item.SupplierID" data-toggle="tooltip" data-placement="top" title="Edit Supplier" class="btn btn-outline-warning btn-tool rounded-circle">
+                                    <i class="fas fa-wrench"></i>
+                                </a>
+                                <a href="/Admin/Suppliers/Delete/@item.SupplierID" class="btn btn-outline-danger btn-tool rounded-circle" data-toggle="tooltip" data-placement="top" title="Delete @item.CompanyName" onclick="return confirm('Are you sure you want to delete @item.CompanyName?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="card-header mx-auto">
+                            <h3 class="card-title text-center">@item.CompanyName</h3>
+                        </div>
+                        <div class="card-body">
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                <li class="small">
+                                    <span class="fa-li">
+                                        <i class="fas fa-lg fa-file-contract"></i>
+                                    </span><b>Contact Title: </b> @item.ContactTitle
+                                </li>
+                                <li class="small">
+                                    <span class="fa-li">
+                                        <i class="fas fa-lg fa-address-card"></i>
+                                    </span><b>Contact Name: </b> @item.ContactName
+                                </li>
+                                <li class="small">
+                                    <span class="fa-li">
+                                        <i class="fas fa-lg fa-map-marked-alt"></i>
+                                    </span><b>City: </b> @item.City / @item.Country
+                                </li>
+                                <li class="small">
+                                    <span class="fa-li">
+                                        <i class="fas fa-lg fa-phone-square-alt"></i>
+                                    </span><b>Phone: </b> @item.Phone
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <div class="card-footer">
+        <nav aria-label="Contacts Page Navigation">
+            @Html.PagedListPager((IPagedList)Model, p => Url.Action("", "Suppliers", new { p }),
+            new PagedListRenderOptions
+            {
+                UlElementClasses = new string[] { "pagination", "justify-content-center", "m-0" },
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                Display = PagedListDisplayMode.IfNeeded
+
+            })
+        </nav>
+    </div>
+</div>
+
+@section Styles{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["supplierAddSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["supplierAddSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["supplierUpdateSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["supplierUpdateSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["supplierDeleteSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.info('@TempData["supplierDeleteSuccessMessage"]')
+        });
+        </script>
+    }
+}

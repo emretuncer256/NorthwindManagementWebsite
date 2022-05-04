@@ -1,0 +1,38 @@
+.route {
+    background: #06977f;
+    padding: 0;
+    text-align: center;
+    color: #868686;
+    font-style: 12px;
+}
+
+.route ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+.route .route-header{
+    color: rgb(41, 41, 41);
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: 600;
+    margin: 10px 0;
+}
+.route li {
+    display: inline-block;
+    padding: 24px 0;
+}
+
+.route li a {
+    padding: 15px 6px;
+    font-size: 16px;
+    font-weight: bolder;
+    text-decoration: none;
+    color: #334c61;
+    border-radius: 25px;
+}
+
+.route li a:hover {
+    color: white;
+    background-color: #0b7c6086;
+    box-shadow: 0 0 7px 4px #0b7c6086;
+}

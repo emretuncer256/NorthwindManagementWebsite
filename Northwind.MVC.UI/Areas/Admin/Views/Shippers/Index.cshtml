@@ -1,0 +1,111 @@
+﻿@using Northwind.Entities.Concrete
+@model List<Shipper>
+@{
+    ViewData["Title"] = "Shippers";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="border border-secondary rounded-pill p-2">
+            <div class="btn-group" role="group">
+                <button type="button" class="btn btn-outline-success" data-toggle="modal" data-target="#shipperAddModal">New Shipper</button>
+                <a target="_blank" href="/Admin/Shippers/Export" class="btn btn-outline-info">Export</a>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row align-content-center">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4">
+            <div class="card text-center" style="width: 18rem;">
+                <div class="card-header">
+                    <h3 class="card-title"><b>@item.CompanyName</b></h3>
+                    <div class="card-tools">
+                        <a href="/Admin/Shippers/Edit/@item.ShipperID" data-toggle="tooltip" data-placement="top" title="Edit @item.CompanyName" class="btn btn-outline-warning btn-tool rounded-circle"><i class="fas fa-wrench"></i></a>
+                        <a href="/Admin/Shippers/Delete/@item.ShipperID" class="btn btn-outline-danger btn-tool rounded-circle" data-toggle="tooltip" data-placement="top" title="Delete @item.CompanyName" onclick="return confirm('Are you sure you want to delete @item.CompanyName?');">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <p class="card-text"><b>Phone: </b> @item.Phone</p>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+@await Html.PartialAsync("_Add", new Shipper())
+
+@section Styles{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <script src="~/theme/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/theme/plugins/jquery-validation/additional-methods.min.js"></script>
+
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            $('#shipperAddForm').validate({
+                rules: {
+                    CompanyName: {
+                        required: true,
+                        maxlength: 40
+                    },
+                    Phone: {
+                        required: true,
+                        maxlength: 24
+                    },
+                },
+                errorElement: 'span',
+                errorPlacement: function (error, element) {
+                    error.addClass('invalid-feedback');
+                    element.closest('.form-group').append(error);
+                },
+                highlight: function (element, errorClass, validClass) {
+                    $(element).addClass('is-invalid');
+                },
+                unhighlight: function (element, errorClass, validClass) {
+                    $(element).removeClass('is-invalid');
+                }
+            });
+        });</script>
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["shipperAddSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["shipperAddSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["shipperUpdateSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["shipperUpdateSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["shipperDeleteSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.info('@TempData["shipperDeleteSuccessMessage"]')
+        });
+        </script>
+    }
+}

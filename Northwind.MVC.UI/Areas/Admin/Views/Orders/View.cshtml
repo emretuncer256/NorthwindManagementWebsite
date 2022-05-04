@@ -1,0 +1,188 @@
+﻿@model Northwind.Entities.Concrete.Order
+@{
+    ViewData["Title"] = "Order Details";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<div class="row align-self-center">
+    <div class="col-md-6">
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+                <h3 class="profile-username text-center">@Model.OrderId - Order Details</h3>
+                <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Order Date</b> <a class="float-right">@Model.OrderDate.ToShortDateString()</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Required Date</b> <a class="float-right">@Model.RequiredDate.ToShortDateString()</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Shipped Date</b> <a class="float-right">@Model.ShippedDate?.ToShortDateString()</a>
+                    </li>
+                </ul>
+
+                <a href="/Admin/Orders/Edit/@Model.OrderId" class="btn btn-warning btn-block"><b>Edit</b></a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+                <h3 class="profile-username text-center">Customer Details</h3>
+                <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Company Name</b> <a class="float-right">@ViewBag.OrderCustomer.CompanyName</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Contact Name</b> <a class="float-right">@ViewBag.OrderCustomer.ContactName</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Country</b> <a class="float-right">@ViewBag.OrderCustomer.Country</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>City</b> <a class="float-right">@ViewBag.OrderCustomer.City</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Phone</b> <a class="float-right">@ViewBag.OrderCustomer.Phone</a>
+                    </li>
+                </ul>
+
+                <a target="_blank" href="/Admin/Customers/View/@ViewBag.OrderCustomer.CustomerId" class="btn btn-primary btn-block"><b>View</b></a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+                <h3 class="profile-username text-center">Employee Details</h3>
+                <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Name</b> <a class="float-right">@ViewBag.OrderEmployee.FirstName @ViewBag.OrderEmployee.LastName</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Country</b> <a class="float-right">@ViewBag.OrderEmployee.Country</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>City</b> <a class="float-right">@ViewBag.OrderEmployee.City</a>
+                    </li>
+                </ul>
+
+                <a target="_blank" href="/Admin/Employees/View/@ViewBag.OrderEmployee.EmployeeId" class="btn btn-primary btn-block"><b>View</b></a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-6">
+        <!-- About Me Box -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">About - Order</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> Freight</strong>
+
+                <p class="text-muted">
+                    @Model.Freight
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-ship mr-1"></i> Ship Name</strong>
+
+                <p class="text-muted">
+                    @Model.ShipName
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Ship Address</strong>
+
+                <p class="text-muted">@Model.ShipAddress</p>
+
+                <hr>
+
+                <strong><i class="fas fa-city mr-1"></i> Ship City</strong>
+
+                <p class="text-muted">@Model.ShipCity</p>
+
+                <hr>
+
+                <strong><i class="fas fa-flag mr-1"></i> Ship Country</strong>
+
+                <p class="text-muted">@Model.ShipCountry</p>
+
+                <hr>
+
+                @if (Model.ShipRegion != null)
+                {
+                    <strong><i class="fas fa-pencil-alt mr-1"></i> Ship Region</strong>
+
+                    <p class="text-muted">@Model.ShipRegion</p>
+
+                    <hr>
+                }
+
+                <strong><i class="fas fa-mail-bulk mr-1"></i> Ship Postal Code</strong>
+
+                <p class="text-muted">@Model.ShipPostalCode</p>
+
+                <hr>
+
+
+
+                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+@section Styles{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#orderTable').DataTable({
+                paging: true,
+                responsive: true
+            });
+        });
+    </script>
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["orderAddSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["orderAddSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["orderUpdateSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["orderUpdateSuccessMessage"]')
+        });
+        </script>
+    }
+}

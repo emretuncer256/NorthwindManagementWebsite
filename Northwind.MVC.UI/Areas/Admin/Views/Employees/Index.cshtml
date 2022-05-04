@@ -1,0 +1,128 @@
+﻿@using Northwind.Entities.Concrete
+@using X.PagedList
+@using X.PagedList.Mvc.Core
+@using X.PagedList.Web.Common
+@model IPagedList<Employee>
+@{
+    ViewData["Title"] = "Employees";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="border border-secondary rounded-pill p-2">
+            <div class="btn-group" role="group">
+                <a href="/Admin/Employees/Add" class="btn btn-outline-success">New Employee</a>
+                <a target="_blank" href="/Admin/Employees/Export" class="btn btn-outline-info">Export</a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Default box -->
+<div class="card card-solid">
+    <div class="card-body pb-0">
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+                    <div class="card bg-light d-flex flex-fill">
+                        <div class="card-header text-muted border-bottom-0">
+                            @item.Title
+                        </div>
+                        <div class="card-body pt-0">
+                            <div class="row">
+                                <div class="col-7">
+                                    <h2 class="lead"><b>@item.TitleOfCourtesy @item.FirstName @item.LastName</b></h2>
+
+                                    <ul class="ml-4 mb-0 fa-ul text-muted">
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-directions"></i>
+                                            </span><b>Hire Date: </b> @item.HireDate.ToShortDateString()
+                                        </li>
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-map-marked-alt"></i>
+                                            </span><b>City: </b> @item.City / @item.Country
+                                        </li>
+                                        <li class="small">
+                                            <span class="fa-li">
+                                                <i class="fas fa-lg fa-phone-square-alt"></i>
+                                            </span><b>Home Phone: </b> @item.HomePhone
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="col-5 text-center">
+                                    <img src="/img/employee-placeholder.jpg" alt="user-avatar" class="img-circle img-fluid">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="text-right">
+                                <a href="/Admin/Employees/Edit/@item.EmployeeId" class="btn btn-sm bg-warning" data-toggle="tooltip" data-placement="top" title="Edit Employee">
+                                    <i class="fas fa-wrench"></i>
+                                </a>
+                                <a href="/Admin/Employees/View/@item.EmployeeId" class="btn btn-sm btn-primary">
+                                    <i class="fas fa-user"></i> View Profile
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- /.card-body -->
+    <div class="card-footer">
+        <nav aria-label="Contacts Page Navigation">
+            @Html.PagedListPager((IPagedList)Model, p => Url.Action("", "Employees", new { p }),
+            new PagedListRenderOptions
+            {
+                UlElementClasses = new string[] { "pagination", "justify-content-center", "m-0" },
+                LiElementClasses = new string[] { "page-item" },
+                PageClasses = new string[] { "page-link" },
+                Display = PagedListDisplayMode.IfNeeded
+
+            })
+        </nav>
+    </div>
+    <!-- /.card-footer -->
+</div> <!-- /.card -->
+@section Styles{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <script>
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["employeeAddSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["employeeAddSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["employeeUpdateSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["employeeUpdateSuccessMessage"]')
+        });
+        </script>
+    }
+}

@@ -1,0 +1,20 @@
+﻿<div class="col-lg-3 col-6">
+    <!-- small box -->
+    @await Html.PartialAsync("_OrderCardPartial", ViewData["OrdersForCard"])
+</div>
+<!-- ./col -->
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    @await Html.PartialAsync("_ProductCardPartial", ViewData["ProductsForCard"])
+</div>
+<!-- ./col -->
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    @await Html.PartialAsync("_CustomerCardPartial", ViewData["CustomersForCard"])
+</div>
+<!-- ./col -->
+<div class="col-lg-3 col-6">
+    <!-- small box -->
+    @await Html.PartialAsync("_EmployeeCardPartial", ViewData["EmployeesForCard"])
+</div>
+<!-- ./col -->

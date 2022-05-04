@@ -1,0 +1,123 @@
+﻿@using Northwind.Entities.Concrete
+@model List<Order>
+@{
+    ViewData["Title"] = "Orders";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+    <style>
+        #table-row {
+            color: #212529;
+        }
+
+            #table-row:hover {
+                background-color: #3a4047;
+                color: white;
+            }
+
+        #orderTable_length > label > select {
+            outline: none;
+            color: #aaa;
+            border-radius: 15px;
+        }
+
+            #orderTable_length > label > select:focus {
+                border-color: teal;
+            }
+
+        #orderTable_filter > label > input {
+            outline: none;
+            color: #aaa;
+            border-radius: 15px;
+        }
+
+            #orderTable_filter > label > input:focus {
+                border-color: teal;
+            }
+    </style>
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+
+}
+
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="border border-secondary rounded-pill p-2">
+            <div class="btn-group" role="group">
+                <a href="/Admin/Orders/Add" class="btn btn-outline-success">Create a New Order</a>
+                <a target="_blank" href="/Admin/Orders/Export" class="btn btn-outline-info">Export</a>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="orderTable" class="table table-hover table-bordered dt-responsive nowrap">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Ship Name</th>
+            <th>Order Date</th>
+            <th>Ship City</th>
+            <th>Ship Country</th>
+            <th>Tool</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="table-row">
+                <th>@item.OrderId</th>
+                <td>@item.ShipName</td>
+                <td>@item.OrderDate.ToShortDateString()</td>
+                <td>@item.ShipCity</td>
+                <td>@item.ShipCountry</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a href="/Admin/Orders/View/@item.OrderId" class="btn btn-outline-primary">View</a>
+                        <a href="/Admin/Orders/Edit/@item.OrderId" class="btn btn-outline-warning">Edit</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#orderTable').DataTable({
+                paging: true,
+                responsive: true
+            });
+        });
+    </script>
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["orderAddSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["orderAddSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["orderUpdateSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["orderUpdateSuccessMessage"]')
+        });
+        </script>
+    }
+}

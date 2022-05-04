@@ -1,0 +1,273 @@
+﻿@using System.Security.Claims
+@using Northwind.Core.Entities
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>@ViewData["Title"]</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+    Power Template
+    https://templatemo.com/tm-508-power
+    -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="~/hometheme/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/hometheme/css/font-awesome.css">
+    <link rel="stylesheet" href="~/hometheme/css/animate.css">
+    <link rel="stylesheet" href="~/hometheme/css/templatemo_misc.css">
+    <link rel="stylesheet" href="~/hometheme/css/templatemo_style.css">
+    <link rel="stylesheet" href="~/hometheme/css/owl-carousel.css">
+    @await RenderSectionAsync("Styles", required: false)
+    <script src="~/hometheme/js/vendor/modernizr-2.6.1-respond-1.1.0.min.js"></script>
+    <link href="~/css/special.css" rel="stylesheet" />
+</head>
+<body>
+
+    @await Html.PartialAsync("_SiteMainPartial")  <!-- /.site-main -->
+
+
+    @await Html.PartialAsync("_HomeBannerPartial")
+
+    @if (User.FindFirstValue(ClaimTypes.Email) != null)
+    {
+        <section class="route">
+            <div class="container">
+                <div class="row">
+                    <h3 class="route-header">Welcome @ViewBag.User.FirstName @ViewBag.User.LastName</h3>
+                </div>
+            </div>
+        </section>
+    }
+
+
+    @await Html.PartialAsync("_HomeIntroPartial")
+
+
+    @await Html.PartialAsync("_HomeAboutPartial")
+
+    <div class="second-tabs-content what-we-do">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="section-heading">
+                        <h4>What we can do else</h4>
+                        <p>Sed tortor lorem, mollis in fringilla sit amet, accumsan eget turpis. Donec ut sollicitudin quam. Sed tempor porta malesuada. Cras aliquam nisi eget efficitur ultrices. Aenean ac ultricies nisl.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="wrapper">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <ul class="tabs clearfix" data-tabgroup="second-tab-group">
+                                <li class="col-md-15 col-sm-12 col-xs-12">
+                                    <a href="#unique" class="active">
+                                        <div class="list-item">
+                                            <div class="icon">
+                                                <img src="/hometheme/img/first-list-icon.png" alt="">
+                                            </div>
+                                            <h4>Unique Ideas</h4>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="col-md-15 col-sm-12 col-xs-12">
+                                    <a href="#theme">
+                                        <div class="list-item">
+                                            <div class="icon">
+                                                <img src="/hometheme/img/second-list-icon.png" alt="">
+                                            </div>
+                                            <h4>Theme Edit</h4>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="col-md-15 col-sm-12 col-xs-12">
+                                    <a href="#translation">
+                                        <div class="list-item">
+                                            <div class="icon">
+                                                <img src="/hometheme/img/third-list-icon.png" alt="">
+                                            </div>
+                                            <h4>Translation</h4>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="col-md-15 col-sm-12 col-xs-12">
+                                    <a href="#event">
+                                        <div class="list-item">
+                                            <div class="icon">
+                                                <img src="/hometheme/img/fourth-list-icon.png" alt="">
+                                            </div>
+                                            <h4>Event Meeting</h4>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li class="col-md-15 col-sm-12 col-xs-12">
+                                    <a href="#photo">
+                                        <div class="list-item">
+                                            <div class="icon">
+                                                <img src="/hometheme/img/fivth-list-icon.png" alt="">
+                                            </div>
+                                            <h4>HD Photos</h4>
+                                        </div>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <section id="second-tab-group" class="tabgroup">
+                            <div id="unique">
+                                <div class="row">
+                                    <div class="tab-content-services">
+                                        <div class="col-md-6">
+                                            <div class="left-text">
+                                                <h4>Unique Ideas</h4>
+                                                <p>
+                                                    Power is a HTML CSS responsive layout from TemplateMo site. You are absolutely free to download, modify and use this template. Please mention your friends about our website. That will be very helpful.
+                                                    <br><br>Aenean malesuada pretium lectus, a vulputate ligula rhoncus nec. Curabitur id dapibus risus. Integer malesuada iaculis eros sit amet egestas. Sed efficitur massa ut dolor porta varius. Sed porttitor vitae dolor faucibus pulvinar.
+                                                </p>
+                                                <div class="primary-button">
+                                                    <a href="#contact-us">Download Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="right-image">
+                                                <img src="/hometheme/img/right-side-image_1.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="theme">
+                                <div class="row">
+                                    <div class="tab-content-services">
+                                        <div class="col-md-6">
+                                            <div class="left-text">
+                                                <h4>Theme Edit</h4>
+                                                <p>Lomo austin health goth meditation quinoa, banh mi pork belly man bun hella ugh migascardigan gluten-free. Gochujang dreamcatcher tofu brunch banjo. VHS austin cardigan squid poke tumeric humblebrag next level everyday carry biodiesel put a bird on it raw denim. Fanny pack aesthetic kinfolk twee <br><br>succulents roof party wayfarers meggings ugh tumblr shaman kale chips green. Before they sold out live-edge kinfolk man bun pop-up scenester ramps taiyaki tacos raclette mixtape la croix post-ironic leggings. Twee typewriter taxidermy, woke farm-to-table hell of cliche celiac meggings.</p>
+                                                <div class="primary-button">
+                                                    <a href="#contact-us">Download Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="right-image">
+                                                <img src="/hometheme/img/right-side-image_2.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="translation">
+                                <div class="row">
+                                    <div class="tab-content-services">
+                                        <div class="col-md-6">
+                                            <div class="left-text">
+                                                <h4>Translation</h4>
+                                                <p>
+                                                    La croix kombucha bespoke dreamcatcher, tumeric tbh quinoa microdosing gastro pub. 8-bit freegan chartreuse synth jean shorts farm-to-table, cold-pressed authen tic. Mixtape hella beard meditation, organic polaroid waistcoat humblebrag taxider my tumblr. Hexagon kinfolk chartreuse shoreditch.
+                                                    <br><br>Aenean malesuada pretium lectus, a vulputate ligula rhoncus nec. Curabitur id dapibus risus. Integer malesuada iaculis eros sit amet egestas. Sed efficitur massa ut dolor porta varius. Sed porttitor vitae dolor faucibus pulvinar.
+                                                </p>
+                                                <div class="primary-button">
+                                                    <a href="#contact-us">Download Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="right-image">
+                                                <img src="/hometheme/img/right-side-image_3.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="event">
+                                <div class="row">
+                                    <div class="tab-content-services">
+                                        <div class="col-md-6">
+                                            <div class="left-text">
+                                                <h4>Event Meeting</h4>
+                                                <p>Lomo austin health goth meditation quinoa, banh mi pork belly man bun hella ugh migascardigan gluten-free. Gochujang dreamcatcher tofu brunch banjo. VHS austin cardigan squid poke tumeric humblebrag next level everyday carry biodiesel put a bird on it raw denim. Fanny pack aesthetic kinfolk twee <br><br>succulents roof party wayfarers meggings ugh tumblr shaman kale chips green. Before they sold out live-edge kinfolk man bun pop-up scenester ramps taiyaki tacos raclette mixtape la croix post-ironic leggings. Twee typewriter taxidermy, woke farm-to-table hell of cliche celiac meggings.</p>
+                                                <div class="primary-button">
+                                                    <a href="#contact-us">Download Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="right-image">
+                                                <img src="/hometheme/img/right-side-image_4.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="photo">
+                                <div class="row">
+                                    <div class="tab-content-services">
+                                        <div class="col-md-6">
+                                            <div class="left-text">
+                                                <h4>HD Images</h4>
+                                                <p>
+                                                    La croix kombucha bespoke dreamcatcher, tumeric tbh quinoa microdosing gastro pub. 8-bit freegan chartreuse synth jean shorts farm-to-table, cold-pressed authen tic. Mixtape hella beard meditation, organic polaroid waistcoat humblebrag taxider my tumblr. Hexagon kinfolk chartreuse shoreditch.
+                                                    <br><br>Aenean malesuada pretium lectus, a vulputate ligula rhoncus nec. Curabitur id dapibus risus. Integer malesuada iaculis eros sit amet egestas. Sed efficitur massa ut dolor porta varius. Sed porttitor vitae dolor faucibus pulvinar.
+                                                </p>
+                                                <div class="primary-button">
+                                                    <a href="#contact-us">Download Now</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="right-image">
+                                                <img src="/hometheme/img/right-side-image_5.jpg" alt="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @await Html.PartialAsync("_HomePortfolioPartial")
+
+
+    @await Html.PartialAsync("_HomeBlogPartial")
+
+
+    @await Html.PartialAsync("_HomeContactUsPartial")
+
+    @RenderBody()
+
+    @await Html.PartialAsync("_HomeFooterPartial")
+
+    <script src="~/hometheme/js/vendor/jquery-1.11.0.min.js"></script>
+    <script>window.jQuery || document.write('<script src="~/hometheme/js/vendor/jquery-1.11.0.min.js"><\/script>')</script>
+    <script src="~/hometheme/js/bootstrap.js"></script>
+    <script src="~/hometheme/js/plugins.js"></script>
+    <script src="~/hometheme/js/main.js"></script>
+
+    <!-- Google Map -->
+    <script src="https://maps.google.com/maps/api/js?sensor=true"></script>
+    <script src="~/hometheme/js/vendor/jquery.gmap3.min.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            // mobile nav toggle
+            $('#nav-toggle').on('click', function (event) {
+                event.preventDefault();
+                $('#main-nav').toggleClass("open");
+            });
+        });
+    </script>
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

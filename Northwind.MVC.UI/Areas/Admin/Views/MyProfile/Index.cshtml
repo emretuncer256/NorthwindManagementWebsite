@@ -1,0 +1,87 @@
+﻿@using Northwind.Core.Entities.Concrete
+@model User
+@{
+    ViewData["Title"] = $"{Model.FirstName} {Model.LastName} | Profile";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-8">
+
+        <!-- Profile Image -->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+                <div class="text-center">
+                    <img class="profile-user-img img-fluid img-circle"
+                         src="/img/employee-placeholder.jpg"
+                         alt="@Model.FirstName@Model.LastName">
+                </div>
+
+                <h3 class="profile-username text-center">@Model.FirstName @Model.LastName</h3>
+
+                <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Email</b> <a class="float-right">@Model.Email</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>First Name</b> <a class="float-right">@Model.FirstName</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Last Name</b> <a class="float-right">@Model.LastName</a>
+                    </li>
+                </ul>
+
+                <a href="/Admin/MyProfile/Edit" class="btn btn-warning btn-block"><b>Edit</b></a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    <div class="col-md-4">
+        @if (ViewData["userClaims"] != null)
+        {
+            <!-- About Me Box -->
+            <div class="card card-primary">
+                <div class="card-header">
+                    <h3 class="card-title">Roles</h3>
+                </div>
+                <!-- /.card-header -->
+                <div class="card-body">
+                    @foreach (OperationClaim item in (List<OperationClaim>)ViewData["userClaims"])
+                    {
+                        <strong><i class="fas fa-book-open mr-1"></i> @item.Name</strong>
+                    }
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        }
+    </div>
+</div>
+
+@section Styles{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["userSuccessfullUpdate"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["userSuccessfullUpdate"]')
+        });
+        </script>
+    }
+}

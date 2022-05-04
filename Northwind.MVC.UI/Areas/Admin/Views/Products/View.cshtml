@@ -1,0 +1,112 @@
+﻿@model Northwind.Entities.DTOs.ProductDetailDto
+@{
+    ViewData["Title"] = Model.ProductName;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-6">
+
+        <!-- Profile Image -->
+        <div class="card card-primary card-outline">
+            <div class="card-body box-profile">
+
+                <h3 class="profile-username text-center">@Model.ProductName</h3>
+                <span class="mx-auto">
+                    <a href="/Admin/Categories/Products/@Model.CategoryId" class="btn rounded-pill bg-info text-dark">@Model.CategoryName</a>
+                </span>
+                <ul class="list-group list-group-unbordered mb-3">
+                    <li class="list-group-item">
+                        <b>Unit Price</b> <a class="float-right">$@Model.UnitPrice</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Quantity Per Unit</b> <a class="float-right">@Model.QuantityPerUnit</a>
+                    </li>
+                    <li class="list-group-item">
+                        <b>Units In Stock</b> <a class="float-right">@Model.UnitsInStock</a>
+                    </li>
+                </ul>
+
+                <a href="/Admin/Products/Edit/@Model.ProductId" class="btn btn-warning btn-block"><b>Edit</b></a>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+    <div class="col-md-6">
+        <!-- About Me Box -->
+        <div class="card card-primary">
+            <div class="card-header">
+                <h3 class="card-title">About - @Model.ProductName</h3>
+            </div>
+            <!-- /.card-header -->
+            <div class="card-body">
+                <strong><i class="fas fa-book mr-1"></i> Features</strong>
+
+                <p class="text-muted">
+                    B.S. in Computer Science from the University of Tennessee at Knoxville
+                </p>
+
+                <hr>
+
+                <strong><i class="fas fa-map-marker-alt mr-1"></i> Production Place</strong>
+
+                <p class="text-muted">Malibu, California</p>
+
+                <hr>
+
+                <strong><i class="fas fa-pencil-alt mr-1"></i> Qualification</strong>
+
+                <p class="text-muted">
+                    <span class="tag tag-danger">UI Design</span>
+                    <span class="tag tag-success">Coding</span>
+                    <span class="tag tag-info">Javascript</span>
+                    <span class="tag tag-warning">PHP</span>
+                    <span class="tag tag-primary">Node.js</span>
+                </p>
+
+                <hr>
+
+                <strong><i class="far fa-file-alt mr-1"></i> Notes</strong>
+
+                <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam fermentum enim neque.</p>
+            </div>
+            <!-- /.card-body -->
+        </div>
+        <!-- /.card -->
+    </div>
+</div>
+
+@section Styles{
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+@section Scripts{
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["productAddSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["productAddSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["productUpdateSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["productUpdateSuccessMessage"]')
+        });
+        </script>
+    }
+}

@@ -1,0 +1,53 @@
+﻿@using Northwind.Entities.DTOs
+@model List<ProductDetailDto>
+@{
+    ViewData["Title"] = ViewBag.currentCategoryName;
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column">
+            <div class="card bg-light d-flex flex-fill">
+                <div class="card-header text-muted border-bottom-0">
+                    @item.CategoryName
+                </div>
+                <div class="card-body pt-0">
+                    <div class="row">
+                        <div class="col-7">
+                            <h2 class="lead"><b>@item.ProductName</b></h2>
+                            <ul class="ml-4 mb-0 fa-ul text-muted">
+                                <li class="small">
+                                    <span class="fa-li">
+                                        <i class="fas fa-lg fa-building"></i>
+                                    </span><b>Quantity: </b> @item.QuantityPerUnit
+                                </li>
+                                <li class="small">
+                                    <span class="fa-li">
+                                        <i class="fas fa-lg fa-tag"></i>
+                                    </span><b>Price: </b> $@Decimal.Round(item.UnitPrice, 2)
+                                </li>
+                                <li class="small">
+                                    <span class="fa-li">
+                                        <i class="fas fa-lg fa-cubes"></i>
+                                    </span><b>Stock: </b> @item.UnitsInStock
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-5 text-center">
+                            <img src="/img/product-placeholder.png" alt="user-avatar" class="img-circle img-fluid">
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="text-right">
+                        <a href="/Admin/Products/View/@item.ProductId" class="btn btn-sm btn-primary">
+                            <i class="fas fa-cube"></i> View Product
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

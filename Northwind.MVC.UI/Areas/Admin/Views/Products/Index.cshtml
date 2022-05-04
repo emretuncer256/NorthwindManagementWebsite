@@ -1,0 +1,119 @@
+﻿@using Northwind.Entities.Concrete
+@model List<Product>
+@{
+    ViewData["Title"] = "Products";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+@section Styles{
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css" />
+    <style>
+        #table-row {
+            color: #212529;
+        }
+
+            #table-row:hover {
+                background-color: #3a4047;
+                color: white;
+            }
+
+        #productTable_length > label > select {
+            outline: none;
+            color: #aaa;
+            border-radius: 15px;
+        }
+
+            #productTable_length > label > select:focus {
+                border-color: teal;
+            }
+
+        #productTable_filter > label > input {
+            outline: none;
+            color: #aaa;
+            border-radius: 15px;
+        }
+
+            #productTable_filter > label > input:focus {
+                border-color: teal;
+            }
+    </style>
+
+    <!-- Toastr -->
+    <link rel="stylesheet" href="~/theme/plugins/toastr/toastr.min.css">
+}
+
+<div class="row mb-2">
+    <div class="col-sm-12">
+        <div class="border border-secondary rounded-pill p-2">
+            <div class="btn-group" role="group">
+                <a href="/Admin/Products/Add" class="btn btn-outline-success">Add a New Product</a>
+                <a target="_blank" href="/Admin/Products/Export" class="btn btn-outline-info">Export</a>
+            </div>
+        </div>
+    </div>
+</div>
+<table id="productTable" class="table table-hover table-bordered dt-responsive nowrap">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Product Name</th>
+            <th>Unit Price</th>
+            <th>Units In Stock</th>
+            <th>Tool</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr id="table-row">
+                <th>@item.ProductId</th>
+                <td>@item.ProductName</td>
+                <td>$@Decimal.Round(item.UnitPrice, 2)</td>
+                <td>@item.UnitsInStock</td>
+                <td>
+                    <div class="btn-group" role="group">
+                        <a href="/Admin/Products/View/@item.ProductId" class="btn btn-outline-primary">View</a>
+                        <a href="/Admin/Products/Edit/@item.ProductId" class="btn btn-outline-warning">Edit</a>
+                    </div>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@section Scripts{
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#productTable').DataTable({
+                paging: true
+            });
+        });
+    </script>
+
+    <!-- Toastr -->
+    <script src="~/theme/plugins/toastr/toastr.min.js"></script>
+    <script>
+        $(function () {
+            toastr.options = {
+                "closeButton": true,
+                "progressBar": true,
+            }
+        });
+    </script>
+    @if (TempData["productAddSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["productAddSuccessMessage"]')
+        });
+        </script>
+    }
+    @if (TempData["productUpdateSuccessMessage"] != null)
+    {
+        <script>
+        $(function () {
+            toastr.success('@TempData["productUpdateSuccessMessage"]')
+        });
+        </script>
+    }
+}
